@@ -1,0 +1,7 @@
+channels:
+- r
+dependencies:
+- ipython=2
+- pandas
+- r
+- r-tidyverse

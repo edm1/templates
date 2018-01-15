@@ -1,0 +1,1 @@
+(bwa mem -R '@RG	ID:B	SM:B' -t 1 data/genome.fa data/samples/B.fastq | samtools view -Sb - > mapped_reads/B.bam) 2> logs/bwa_mem/B.log
