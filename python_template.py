@@ -10,10 +10,13 @@ import pandas as pd
 
 def main():
 
-    # Load pandas iteritively
-    # snpset = set([])
-    # iter_csv = pd.read_csv(inrep, sep="\t", header=0, iterator=True, chunksize=100000)
-    # df = pd.concat([chunk[chunk['rsid'].isin(snpset)] for chunk in iter_csv])
+    # Make a set containing a list of rsid's you would like to load
+    snpset = set([])
+
+
+
+    iter_csv = pd.read_csv(inrep, sep="\t", header=0, iterator=True, chunksize=100000)
+    df = pd.concat([chunk[chunk['rsid'].isin(snpset)] for chunk in iter_csv])
 
     return 0
 

@@ -20,9 +20,9 @@
 #         output ...
 #         threads: 4
 #         resources:
-#             mem = 8000                    # megabytes
-#             runtime = 35                  # minutes
-#             queue = "my_favorite_queue"   # queue name
+#             mem=8000,                    # megabytes
+#             runtime=35,                  # minutes
+#             queue="my_favorite_queue"   # queue name
 #
 # Invoke snakemake with the path to bsub.py:
 #
@@ -38,6 +38,7 @@ import os
 import sys
 import json
 import argparse
+import time
 
 from subprocess import check_output
 
@@ -87,6 +88,7 @@ def main():
 
     # Submit the job to the queue.
     run_bsub(queue, threads, mem, runtime, args.jobscript, jobname, stdout, stderr)
+    time.sleep(1)
 
 def run_bsub(queue, threads, mem, runtime, script, jobname, stdout, stderr):
     cmd = "bsub -J {j} -q {q} -n {t}".format(j=jobname, q=queue, t=threads)

@@ -8,18 +8,24 @@
 #BSUB -e errorfile.%J.%I
 #BSUB -E <script> # Execute this script on host before main script
 
-# Run interactive: bsub -q small -J interactive -n 1 -R "select[mem>8000] rusage[mem=8000] span[hosts=1]" -M8000 -Is bash
-# Stop job:        bstop <jobid>
-# Resume job:      bresume <jobid>
-# Kill job:        bkill <jobid>
-# Job history:     bhist
-# Job info:        bjobs (jobid)
-# Depend on job:   bsub -w "done(&lt;<jobid>&gt)" -o <outfile> <script>
-# Queue info:      bqueues
+# Run interactive:   bsub -q normal -J interactive -n 1 -R "select[mem>8000] rusage[mem=8000] span[hosts=1]" -M8000 -Is bash
+# Stop job:          bstop <jobid>
+# Resume job:        bresume <jobid>
+# Kill job:          bkill <jobid>
+# Job history:       bhist
+# Job info (wide):   bjobs -w (jobid)
+# Depend on job:     bsub -w "done(&lt;<jobid>&gt)" -o <outfile> <script>
+# Queue info:        bqueues
+# Check user quota:  lfs quota -hu em21 /lustre/scratch115
+# Check group quota: lfs quota -hg otcoregen /lustre/scratch115
+# Check user quota home: quota -vs
+# User priority:     bqueues -l -r long | awk -v project="otcoregen"  '$1 ~ /SHARE_INFO/ {h=""} ; {if ( match ($2,project) ) {h=$0 }} ; {if ( h ) {print $0}}'
+# Group priority:    bqueues -l -r long | awk -v project="humgenp"  '$1 ~ /SHARE_INFO/ {h=""} ; {if ( match ($2,project) ) {h=$0 }} ; {if ( h ) {print $0}}'
 
 # Load required modules
 # module avail                 # List modules
 # module load hgi/plink/1.90b4 # Load module
+# module load hgi/gsutil/4.28
 
 # Get chromosome names from array index
 chrom=$LSB_JOBINDEX
