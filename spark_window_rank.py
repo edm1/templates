@@ -27,7 +27,11 @@ def main():
     
     # Make spark session
     global spark
-    spark = (pyspark.sql.SparkSession.builder.getOrCreate())
+    spark = (
+        pyspark.sql.SparkSession.builder
+        # .config("spark.master", "local[16]")
+        .getOrCreate()
+    )
     print('Spark version: ', spark.version)
     
     # Load data
