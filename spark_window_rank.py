@@ -30,6 +30,7 @@ def main():
     spark = (
         pyspark.sql.SparkSession.builder
         # .config("spark.master", "local[16]")
+        # .config("spark.local.dir", "/local/scratch/edm/spark-temp")
         .getOrCreate()
     )
     print('Spark version: ', spark.version)
